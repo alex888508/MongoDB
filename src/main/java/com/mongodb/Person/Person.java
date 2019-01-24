@@ -1,16 +1,19 @@
-package com.mongodb;
+package com.mongodb.Person;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import javax.persistence.Entity;
 
+@Entity
 @Document(collection = "Person")
 public class Person {
     @Id
-    public String name;
+    private Long id;
 
     @Field
+    public String name;
     public String Email;
     public String password;
     public String old;
