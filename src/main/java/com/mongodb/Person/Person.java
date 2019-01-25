@@ -1,76 +1,27 @@
 package com.mongodb.Person;
 
-import netscape.security.Privilege;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import java.util.Collection;
-import java.util.Set;
-
-@Entity
 @Document(collection = "Person")
-public class Person implements UserDetails {
+public class Person {
     @Id
-    private Long id;
+    private String id;
 
-    @Field
-    public String name;
-    public String Email;
-    public String password;
-    public String old;
+    private String name;
+    private String email;
+    private String password;
+    private String old;
 
-    public Person () {};
-
-    public Person(String name)
-    {
+    public Person(String name, String password) {
         this.name = name;
-        this.Email = Email;
+        this.email = email;
         this.password = password;
         this.old = old;
     }
 
-    private Set<Privilege> privileges;
-
-    public Set<Privilege> getPrivileges() {
-        return privileges;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
     public String getPassword() {
         return this.password;
-    }
-
-    @Override
-    public String getUsername() {
-        return null;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
     }
 
     public void setPassword(String password) {
@@ -78,11 +29,11 @@ public class Person implements UserDetails {
     }
 
     public void setEmail(String Email) {
-        this.Email = Email;
+        this.email = Email;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setName(String name) {
@@ -99,6 +50,17 @@ public class Person implements UserDetails {
 
     public void setOld(String old) {
         this.old = old;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", old='" + old + '\'' +
+                '}';
     }
 }
 
