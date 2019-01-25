@@ -1,33 +1,25 @@
 package com.mongodb.Security;
 
 
-import javax.annotation.PostConstruct;
-
+import com.mongodb.Person.Person;
+import com.mongodb.Person.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.WebApplicationContext;
-
-import com.mongodb.Person.PersonRepository;
-import com.mongodb.Person.Person;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private WebApplicationContext applicationContext;
     private PersonRepository personRepository;
 
-    public CustomUserDetailsService() {
+    public MyUserDetailsService() {
         super();
     }
 
-    @PostConstruct
-    public void completeSetup() {
-        personRepository = applicationContext.getBean(PersonRepository.class);
-    }
+    // API
 
     @Override
     public UserDetails loadUserByUsername(final String username) {
@@ -35,7 +27,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (person == null) {
             throw new UsernameNotFoundException(username);
         }
-        return new AppUserPrincipal(person);
+        return new MyUser(person);
     }
-
 }

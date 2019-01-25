@@ -1,42 +1,43 @@
 package com.mongodb.Security;
 
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
+import com.mongodb.Person.Person;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.mongodb.Person.Person;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-public class AppUserPrincipal implements UserDetails {
+public class MyUser implements UserDetails {
 
-    private final Person user;
+    private final Person person;
 
     //
 
-    public AppUserPrincipal(Person user) {
-        this.user = user;
+    public MyUser(Person person) {
+        this.person = person;
     }
 
     //
 
     @Override
     public String getUsername() {
-        return user.getName();
+        return person.getUsername();
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return person.getPassword();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        final List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("User"));
-        return authorities;
+        return null;
+    }
+
+    public Person getUser() {
+        return person;
     }
 
     @Override
@@ -58,11 +59,4 @@ public class AppUserPrincipal implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-    //
-
-    public Person getAppUser() {
-        return user;
-    }
-
 }
