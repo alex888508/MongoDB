@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -32,9 +33,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
-                .cors()
-                .and()
                 .authorizeRequests()
+                .antMatchers(
+                "/api/names/users").permitAll()
                 .anyRequest().authenticated()
 
                 .and()
@@ -46,6 +47,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .successHandler((req, res, e) -> res.setStatus(200))
                     .failureHandler((req, res, e) -> res.setStatus(401))
 
+                .and()
+                .logout()
+                     .invalidateHttpSession(true)
+                     .clearAuthentication(true)
+                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                     .logoutSuccessUrl("/login?logout")
                 .and()
                 .csrf().disable();
     }

@@ -1,7 +1,7 @@
 package com.mongodb.controller;
 
 import com.mongodb.Person.Person;
-import com.mongodb.Person.PersonRepository;
+import com.mongodb.Connection.PersonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
